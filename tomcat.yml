@@ -1,0 +1,32 @@
+---
+- name: Install Tomcat and Petclinic
+  hosts: tomcat
+  become: true
+
+  tasks:
+
+   - name: Installs JDK 8
+     apt:
+       name: openjdk-8-jdk
+       state: latest
+       install_recommends: no
+
+   - name: Installs Tomcat8 web server
+     apt: pkg=tomcat8 state=present update_cache=true
+     notify:
+       - start Tomcat
+
+   - name: Copy spring-petclinic webapp to /var/lib/tomcat8/webapps
+     copy:
+       src:  /terraform/infra_base/spring-framework-petclinic/target/petclinic.war
+       dest: /var/lib/tomcat8/webapps/petclinic.war
+#      owner: marc
+#       group: marc
+     notify:
+       - restart Tomcat
+
+   - name: start Tomcat
+     service: name=tomcat8 state=started
+
+   - name: restart Tomcat
+     service: name=tomcat8 state=restarted

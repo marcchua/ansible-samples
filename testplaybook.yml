@@ -1,0 +1,45 @@
+---
+- name: Install nginx
+  hosts: all
+  become: true
+
+  tasks:
+
+   - name: Installs Nginx web server
+     apt: pkg=nginx state=present update_cache=true
+     notify:
+       - start Nginx
+
+   - name: Installs JDK 8
+     apt:
+       name: openjdk-8-jdk
+       state: latest
+       install_recommends: no
+
+
+   - name: Installs Tomcat8 web server
+     apt: pkg=tomcat8 state=present update_cache=true
+     notify:
+       - start Tomcat
+
+   - name: Create a directory called images
+     file: path=/usr/share/nginx/html/images state=directory mode=0755
+
+   - name: Copy spring-petclinic webapp to /var/lib/tomcat8/webapps
+     copy:
+       src:  /home/marc/spring-framework-petclinic/target/petclinic.war
+       dest: /var/lib/tomcat8/webapps/petclinic.war
+       owner: marc
+       group: marc
+     notify:
+       - restart Tomcat
+
+  handlers:
+   - name: start Nginx
+     service: name=nginx state=started
+
+   - name: start Tomcat
+     service: name=tomcat8 state=started
+
+   - name: restart Tomcat
+     service: name=tomcat8 state=restarted
