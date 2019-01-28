@@ -10,6 +10,8 @@ resource "null_resource" "run-ansible-playbook" {
   connection {
     type = "ssh"
     host = "${var.ansible_host_addr}"
+    timeout = "30s"
+    agent = false 
     user = "${var.user}"
 #    password = "Hashi123!"
     private_key = "${base64decode(var.ssh_private_key)}"
