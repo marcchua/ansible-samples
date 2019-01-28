@@ -30,6 +30,8 @@
      notify:
        - restart Tomcat
 
+ handlers:
+ 
    - name: start Tomcat
      service: name=tomcat8 state=started
 
