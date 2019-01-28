@@ -12,7 +12,7 @@ resource "null_resource" "run-ansible-playbook" {
     host = "${var.ansible_host_addr}"
     user = "${var.user}"
 #    password = "Hashi123!"
-    private_key = "${var.ssh_private_key}"
+    private_key = "${base64decode(var.ssh_private_key)}"
   }
 
   provisioner "remote-exec" {
