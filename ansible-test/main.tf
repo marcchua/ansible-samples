@@ -1,9 +1,10 @@
 resource "null_resource" "run-ansible-playbook" {
 
+/*
   provisioner "local-exec" {
       command = "ping ${var.ansible_host_addr}"
   }
-
+*/
   count = "${var.instances}"
 
   connection {
