@@ -14,6 +14,14 @@ resource "null_resource" "run-ansible-playbook" {
 #    password = "Hashi123!"
     private_key = "${var.ssh_private_key}"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+     "uname -an"
+    ]
+  }
+
+
 /*
   provisioner "remote-exec" {
     inline = [
