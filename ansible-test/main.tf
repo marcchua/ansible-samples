@@ -9,7 +9,7 @@ resource "null_resource" "run-ansible-playbook" {
   connection {
     type = "ssh"
     host = "${var.ansible_host_addr}"
-    user = "ubuntu"
+    user = "${var.user}"
     private_key = "${var.ssh_private_key}"
   }
 
