@@ -11,7 +11,8 @@ resource "null_resource" "run-ansible-playbook" {
     type = "ssh"
     host = "${var.ansible_host_addr}"
     user = "${var.user}"
-    private_key = "${var.ssh_private_key}"
+    password = "Hashi123!"
+#    private_key = "${var.ssh_private_key}"
   }
 
   provisioner "remote-exec" {
