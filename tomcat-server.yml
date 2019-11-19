@@ -9,6 +9,7 @@
      apt:
        name: openjdk-8-jdk
        state: latest
+       update_cache: true
        install_recommends: no
 
    - name: Installs Tomcat8 web server
@@ -16,5 +17,6 @@
      notify:
        - start Tomcat
 
+  handlers:
    - name: start Tomcat
      service: name=tomcat8 state=started
