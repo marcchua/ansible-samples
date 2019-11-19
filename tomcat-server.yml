@@ -1,0 +1,20 @@
+---
+- name: Install Tomcat
+  hosts: all
+  become: true
+
+  tasks:
+
+   - name: Installs JDK 8
+     apt:
+       name: openjdk-8-jdk
+       state: latest
+       install_recommends: no
+
+   - name: Installs Tomcat8 web server
+     apt: pkg=tomcat8 state=present update_cache=true
+     notify:
+       - start Tomcat
+
+   - name: start Tomcat
+     service: name=tomcat8 state=started
