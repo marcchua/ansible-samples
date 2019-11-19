@@ -12,11 +12,11 @@
        update_cache: true
        install_recommends: no
 
-   - name: Installs Tomcat8 web server
-     apt: pkg=tomcat8 state=present update_cache=true
+   - name: Installs Tomcat9 web server
+     apt: pkg=tomcat9 state=present update_cache=true
      notify:
        - start Tomcat
 
   handlers:
    - name: start Tomcat
-     service: name=tomcat8 state=started
+     service: name=tomcat9 state=started
